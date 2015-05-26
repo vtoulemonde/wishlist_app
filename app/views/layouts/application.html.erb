@@ -8,7 +8,51 @@
 </head>
 <body>
 
-<%= yield %>
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top custom" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+
+      </button>
+      <%= link_to "MyWishList", root_path, class: "navbar-brand"%>
+    </div>
+    <div class="navbar-collapse collapse">
+      <% if logged_in? %>
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="#">
+            Welcome <%= current_user.name %></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle glyphicon glyphicon-align-justify" data-toggle="dropdown"><span class="caret "></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li>Menu1</li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Profile", edit_user_path(current_user) %></li>
+        <li class="active"><%= link_to 'Logout', sessions_path, method: :delete %></li>
+      </ul>
+      <% end %>
+    </div><!--/.nav-collapse -->
+  </div><!-- /container -->
+</div><!-- /navbar -->
+
+<div class="container">
+  <br><br><br><br>
+
+  <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: "alert alert-#{name}"%>
+  <% end %>
+
+  <%= yield %>
+
+</div> <!-- /container -->
 
 </body>
 </html>
