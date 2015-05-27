@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-xs-12 col-md-8 col-md-offset-2">
+    <div class="form-group">
+    <%= link_to 'NEW LIST', new_list_path, class:"btn btn-default glyphicon glyphicon-add"%>
+    </div>
+
+    <% @lists.each do |list| %>
+    <div><hr>
+    <h3><%= link_to list.name, list_path(list), class:""%>
+      <div class="actions pull-right">
+    <%= link_to '', edit_list_path(list), class:"btn btn-primary glyphicon glyphicon-pencil"%>
+    <%= link_to '', list_path(list), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default glyphicon glyphicon-remove"%>
+  </div>
+    </h3></div>
+    <% end %>
+  </div>
+</div>
