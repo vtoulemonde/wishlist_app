@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   root 'sessions#index'
 
   resources :users
-  resources :lists
+  resources :lists do
+    resources :items
+  end
 
   post 'sessions' => 'sessions#create'
   delete 'sessions' => 'sessions#destroy'
