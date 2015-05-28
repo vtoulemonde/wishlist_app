@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: mywishlist
+  api_key: '723341977427361'
+  api_secret: paDAXFmVb3an7Om6cDIU74ohbT8
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: mywishlist
+  api_key: '723341977427361'
+  api_secret: paDAXFmVb3an7Om6cDIU74ohbT8
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: mywishlist
+  api_key: '723341977427361'
+  api_secret: paDAXFmVb3an7Om6cDIU74ohbT8
+  enhance_image_tag: true
+  static_image_support: false

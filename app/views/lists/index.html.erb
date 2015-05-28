@@ -1,17 +1,35 @@
 <div class="row">
   <div class="col-xs-12 col-md-8 col-md-offset-2">
-    <div class="form-group">
-    <%= link_to 'NEW LIST', new_list_path, class:"btn btn-default glyphicon glyphicon-add"%>
-    </div>
+
+      <h2 class="blue">
+          My Wish Lists
+          <div class="actions pull-right">
+            <%= link_to ' NEW LIST', new_list_path, class:"btn btn-primary glyphicon glyphicon-plus"%>
+          </div>
+      </h2>
 
     <% @lists.each do |list| %>
-    <div><hr>
-    <h3><%= link_to list.name, list_path(list), class:""%>
-      <div class="actions pull-right">
-    <%= link_to '', edit_list_path(list), class:"btn btn-primary glyphicon glyphicon-pencil"%>
-    <%= link_to '', list_path(list), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default glyphicon glyphicon-remove"%>
-  </div>
-    </h3></div>
-    <% end %>
+      <hr>
+      <div class="row">
+        <div class="col-xs-4 col-md-4">
+          <% nb = 0 %>
+          <% list.items.each do |item| %>
+            <% if item.picture? && nb < 6 %>
+              <%= image_tag(item.picture_url, :width => 65, :height => 65, :crop => :fill) %>
+              <% nb += 1 %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-xs-8 col-md-8">
+          <div class="actions pull-right">
+              <%= link_to '', edit_list_path(list), class:"btn btn-primary glyphicon glyphicon-pencil"%>
+              <%= link_to '', list_path(list), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default glyphicon glyphicon-remove"%>
+            </div>
+          <h3 class="gray"><%= link_to list.name, list_path(list), class:"gray"%></h3>
+          <p><%= list.created_at.strftime("Created on %B %e, %Y")%></p>
+          <p><%=pluralize(list.items.size, 'item', 'items')%></p>
+        </div>
+      </div>
+      <% end %>
   </div>
 </div>

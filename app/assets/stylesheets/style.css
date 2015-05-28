@@ -1,3 +1,9 @@
+body {
+  font-family: Helvetica,Arial,sans-serif  !important;
+  font-size: 15px  !important;
+  color: #666  !important;
+}
+
 .border_box {
   border-color: rgb(227, 227, 227);
   border-radius: 4px;
@@ -5,4 +11,12 @@
   border-width: 1px;
   padding: 20px;
   margin-bottom: 20px;
+}
+
+.blue {
+  color: #3a606e !important;
+}
+
+.gray {
+  color: #666 !important;
 }

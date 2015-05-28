@@ -1,24 +1,39 @@
 <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
 
-        <h1>
+        <h2 class="blue">
             <%= @list.name%> 
             <%= link_to '', edit_list_path(@list), class:"btn btn-primary glyphicon glyphicon-pencil"%>
             <%= link_to 'ADD ITEM', new_list_item_path(@list), class:"btn btn-primary"%>
-        </h1>
+        </h2>
+        <p><%=@list.comment%></p>
 
         <% @list.items.each do |item| %>
-            <div><hr>
-                <h3><a href="<%=item.url%>"><%=item.title%></a>
-                  <div class="actions pull-right">
-                    <%= link_to '', edit_list_item_path(@list,item), class:"btn btn-primary glyphicon glyphicon-pencil"%>
-                    <%= link_to '', list_item_path(@list, item), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default glyphicon glyphicon-remove"%>
-                  </div>
-                </h3>
-                <p><%=item.comment%></p>
-                <p>$<%=item.price%></p>
+            <hr>
+            <div class="row">
+                 <div class="col-xs-3 col-md-3">
+                    <%= image_tag(item.picture_url, :width => 125, :height => 125, :crop => :fill) if item.picture? %>
+                </div>
+                <div class="col-xs-9 col-md-9">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <h3 class="gray"><a href="<%=item.url%>" class="gray"><%=item.title%></a>
+                            <div class="actions pull-right">
+                                <%= link_to '', edit_list_item_path(@list,item), class:"btn btn-primary glyphicon glyphicon-pencil"%>
+                                <%= link_to '', list_item_path(@list, item), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default glyphicon glyphicon-remove"%>
+                              </div>
+                          </h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <p><%=item.comment%></p>
+                            <p>$<%=item.price%></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <% end %>
+        <% end %>
 
     </div>
 </div>
