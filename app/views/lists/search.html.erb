@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+
+        <h2 class="text-center blue">Find a list</h2>
+        <!-- Search form -->
+        <%= form_tag search_path, method: :GET do %>
+          <div class="input-group">
+            <%= text_field_tag :search, @search, class: "form-control" %>
+            <span class="input-group-btn">
+              <%= submit_tag "Search", class: "btn btn-default"%>
+            </span>
+
+          </div>
+        <% end %>
+
+        <% @lists.each do |list| %>
+          <hr>
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <% nb = 0 %>
+              <% list.items.each do |item| %>
+                <% if item.picture? && nb < 6 %>
+                  <%= image_tag(item.picture_url, :width => 65, :height => 65, :crop => :fill) %>
+                  <% nb += 1 %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="col-xs-8 col-md-8">
+              <div class="actions pull-right">
+                  <%= link_to 'SEE THAT LIST', list_path(list), class:"btn btn-primary"%>
+                </div>
+              <h3 class="gray"><%= list.name%></h3>
+              <p><%= list.created_at.strftime("Created on %B %e, %Y")%> by <%=list.user.name%></p>
+            </div>
+          </div>
+          <% end %>
+
+    </div>
+</div>

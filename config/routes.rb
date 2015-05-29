@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :items
   end
 
+  get 'search' => 'lists#search'
+  post 'reserve/:id' => 'items#reserve'
   post 'sessions' => 'sessions#create'
   delete 'sessions' => 'sessions#destroy'
 

@@ -1,5 +1,7 @@
 class ListsController < ApplicationController
 
+  helper ListsHelper
+  
   def index
     @lists = List.where(user_id: session[:current_user_id])
   end
@@ -41,6 +43,16 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list.destroy
     redirect_to lists_path
+  end
+
+  def search
+    @lists = []
+    @search = params[:search]
+    # words = params[:search].split(" ")
+    if @search
+      @lists = List.where("lower(name) like ?", "%#{@search.downcase}%")
+      # @lists = List.where("name similar to ?", "%(#{words.join("|").downcase})%")
+    end
   end
 
   private

@@ -37,10 +37,20 @@ class ItemsController < ApplicationController
     redirect_to @list
   end
 
+  def reserve
+    item = Item.find params[:id]
+    item.reservation = params[:reservation]
+    if item.save
+      render json: {}
+    else
+      render status: 400, nothing: true
+    end
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:title, :url, :price, :comment, :list_id, :picture)
+    params.require(:item).permit(:title, :url, :price, :comment, :list_id, :picture, :reservation)
   end
 
 end

@@ -2,11 +2,15 @@
     <div class="col-xs-12 col-md-8 col-md-offset-2">
 
         <h2 class="blue">
-            <%= @list.name%> 
+            <%= @list.name%>
+            <% if admin_list?(@list)%>
             <%= link_to '', edit_list_path(@list), class:"btn btn-primary glyphicon glyphicon-pencil"%>
             <%= link_to 'ADD ITEM', new_list_item_path(@list), class:"btn btn-primary"%>
+            <% end %>
         </h2>
         <p><%=@list.comment%></p>
+
+<%= render partial: "/items/modal_reserve" %>
 
         <% @list.items.each do |item| %>
             <hr>
@@ -17,12 +21,22 @@
                 <div class="col-xs-9 col-md-9">
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
-                            <h3 class="gray"><a href="<%=item.url%>" class="gray"><%=item.title%></a>
+                            
                             <div class="actions pull-right">
+                                <% if admin_list?(@list)%>
                                 <%= link_to '', edit_list_item_path(@list,item), class:"btn btn-primary glyphicon glyphicon-pencil"%>
                                 <%= link_to '', list_item_path(@list, item), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default glyphicon glyphicon-remove"%>
-                              </div>
-                          </h3>
+                                <% else %>
+                                    <% if !item.reservation %>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-itemid="<%=item.id%>">RESERVE IT</button>
+                                    <% end %>
+                                <% end %>
+                                <% if item.reservation %>
+                                    <br><small>Already offered by <%=item.reservation%></small>
+                                <% end %>
+                            </div>
+
+                          <h3 class="gray"><a href="<%=item.url%>" class="gray"><%=item.title%></a></h3>
                         </div>
                     </div>
                     <div class="row">
