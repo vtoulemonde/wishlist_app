@@ -1,18 +1,46 @@
 <%= form_for [@list, @item] do |f| %>
+<div class="row">
+    <div class="col-xs-4 col-md-4">
+        <div class="form-group">
+            <br>
+            <% if @item.picture? %>
+                <%= image_tag(@item.picture_url, :width => 200, :height => 200, :crop => :fill, class:"main-image") %>
+            <% else %>
+                <img src="" width="200" style="display:none;" class="main-image" />
+            <% end %>
+            <button class="btn btn-sm btn-block btn-primary btn-file">
+                <%= f.hidden_field(:picture_url)%>
+                <%= f.hidden_field(:picture_cache)%>
+                <span>Upload New Image</span>
+                <%= f.file_field(:picture)%>
+            </button>
+            <a class="btn btn-sm btn-block btn-default" id="delete-image-btn" href="#">Delete image</a>
+        </div>
+    </div>
+    <div class="col-xs-8 col-md-8">
+        <div class="form-group">
+            <%= f.label :title %><br>
+            <%= f.text_field :title, class: "form-control"%>
+        </div>
 
-<div class="form-group">
-    <%= f.label :title %><br>
-    <%= f.text_field :title, class: "form-control"%>
-</div>
+        <div class="form-group">
+            <%= f.label :url %><br>
+            <%= f.text_field :url, class: "form-control"%>
+        </div>
 
-<div class="form-group">
-    <%= f.label :url %><br>
-    <%= f.text_field :url, class: "form-control"%>
-</div>
-
-<div class="form-group">
-    <%= f.label :price %><br>
-    <%= f.text_field :price, class: "form-control"%>
+        <div class="form-group">
+            <%= f.label :price %><br>
+            <%= f.text_field :price, class: "form-control"%>
+        </div>
+        <% if @item.reservation && @item.reservation != "" %>
+        <%= f.hidden_field(:reservation)%>
+        <div class="form-group" id="reservation">
+            <small>Offered by <%=@item.reservation%></small>
+            
+            <button type="button" class="btn btn-default" id="delete-reservation" >Delete Reservation</button>
+        </div>
+        <% end %>
+    </div>
 </div>
 
 <div class="form-group">
@@ -21,15 +49,26 @@
 </div>
 
 <div class="form-group">
-    <%= f.label :picture %><br>
-    <%= image_tag(@item.picture_url, :width => 200, :height => 200, :crop => :fill) if @item.picture? %>
-    <%= f.hidden_field(:picture_cache)%>
-    <%= f.file_field(:picture, class: "btn btn-default")%>
-</div>
-
-<div class="form-group">
     <%= link_to 'Cancel', list_path(@list) , class:"btn btn-default"%>
     <%= f.submit class:"btn btn-default" %>
 </div>
 
 <% end %>
+
+<script type="text/javascript">
+$("#item_picture").change(function(event){
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $(".main-image").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+});
+
+$("#delete-image-btn").click(function(event){
+    $(".main-image").fadeOut("fast");
+    $("#item_picture").val("");
+});
+
+$("#delete-reservation").click(function(event){
+    $("#item_reservation").val(null);
+    $("#reservation").fadeOut("fast");
+});
+
+</script>

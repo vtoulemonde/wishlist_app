@@ -1,0 +1,49 @@
+
+<% if @imgs && !@imgs.empty? %>
+<div class="row">
+    <div class="col-xs-4 col-md-4">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <% first = true %>
+    <% @imgs.each do |image| %>
+      <% if first %>
+        <div class="item active">
+          <% first = false %>
+      <% else %>
+        <div class="item">
+      <% end %>
+        <%= image_tag(image, :width => 125, :height => 125, :crop => :fill, class: "web-image") %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<a href="#" id="getimage" class="btn btn-sm btn-block btn-primary">Choose that image</a>
+
+
+</div>
+</div>
+<% end %>
+
+<script type="text/javascript">
+
+$("#getimage").click(function(event){
+    var urlImage = $(".active img")[0].src;
+    console.log(urlImage);
+    $(".main-image").fadeIn("fast").attr('src', urlImage);
+    $("#item_picture_url").val(urlImage);
+});
+
+</script>

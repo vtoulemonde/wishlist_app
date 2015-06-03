@@ -3,6 +3,21 @@
 
         <h2 class="text-center blue">NEW ITEM</h2>
 
+        <!-- Search form -->
+        <%= form_tag parse_path, method: :GET do %>
+          <div class="input-group">
+            <%= text_field_tag :url_parse, nil, class: "form-control", placeholder: "Paste the url of the item..."  %>
+            <input type='hidden' id="list_id" name="list_id" value="<%=@list.id%>">
+            <span class="input-group-btn">
+              <%= submit_tag "Get info", class: "btn btn-default"%>
+            </span>
+
+          </div>
+        <% end %>
+
+        
+        <%= render partial: "carousel" %>
+<hr>
         <%= render partial: "form" %>
 
     </div>

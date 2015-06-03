@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       flash[:danger] = "Incorrect password."
     end
 
-    redirect_to root_path
+    redirect_to lists_path
   end
 
   def destroy

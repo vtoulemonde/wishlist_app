@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :items
   end
 
+  get 'parse' =>'items#parse'
   get 'search' => 'lists#search'
   post 'reserve/:id' => 'items#reserve'
   post 'sessions' => 'sessions#create'
