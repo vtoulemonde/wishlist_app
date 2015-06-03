@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150528225526) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "items", force: :cascade do |t|
     t.string   "title"
     t.string   "url"
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150528225526) do
     t.string   "reservation"
   end
 
-  add_index "items", ["list_id"], name: "index_items_on_list_id"
+  add_index "items", ["list_id"], name: "index_items_on_list_id", using: :btree
 
   create_table "lists", force: :cascade do |t|
     t.string   "name"
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150528225526) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "lists", ["user_id"], name: "index_lists_on_user_id"
+  add_index "lists", ["user_id"], name: "index_lists_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
